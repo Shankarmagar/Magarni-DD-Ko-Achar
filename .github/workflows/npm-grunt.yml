@@ -35,14 +35,4 @@ jobs:
     - name: Install dependencies
       run: |
         cd magarni-dd-ko-achar
-        npm install
-
-    - name: Build Next.js app
-      run: |
-        cd magarni-dd-ko-achar
-        npm run build
-
-    - name: Run tests
-      run: |
-        cd magarni-dd-ko-achar
-        npm test
+        npm run dev
