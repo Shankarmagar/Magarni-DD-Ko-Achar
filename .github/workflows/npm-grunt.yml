@@ -35,4 +35,5 @@ jobs:
     - name: Install dependencies
       run: |
         cd magarni-dd-ko-achar
+        npm install
         npm run dev
