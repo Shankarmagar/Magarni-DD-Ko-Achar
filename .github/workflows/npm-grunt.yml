@@ -1,4 +1,4 @@
-name: NodeJS with Grunt
+name: Next.js CI
 
 on:
   push:
@@ -17,13 +17,22 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Set up Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Build
+    - name: Install dependencies
       run: |
         cd magarni-dd-ko-achar
         npm install
-        grunt
+
+    - name: Build Next.js app
+      run: |
+        cd magarni-dd-ko-achar
+        npm run build
+
+    - name: Run tests
+      run: |
+        cd magarni-dd-ko-achar
+        npm test
