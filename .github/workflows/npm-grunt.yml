@@ -38,3 +38,4 @@ jobs:
         npm install
         npx next telemetry disable
         npm run dev
+        npm test
