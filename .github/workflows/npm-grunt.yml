@@ -1,28 +1,48 @@
-name: CI Pipeline
+name: Next.js CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   pull_request:
-    branches:
-      - main
+    branches: [ "main" ]
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
+    - name: Cache Node.js modules
+      uses: actions/cache@v3
+      with:
+        path: |
+          magarni-dd-ko-achar/node_modules
+          magarni-dd-ko-achar/.next/cache
+        key: ${{ runner.os }}-node-${{ hashFiles('magarni-dd-ko-achar/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
 
-      - name: Install dependencies
-        run: cd magarni-dd-ko-achar
-        run: npm install
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
 
-      - name: Run tests
-        run: npm test
+    - name: Install dependencies
+      run: |
+        cd magarni-dd-ko-achar
+        npm install
+
+    - name: Build Next.js app
+      run: |
+        cd magarni-dd-ko-achar
+        npm run build
+
+    - name: Run tests
+      run: |
+        cd magarni-dd-ko-achar
+        npm test
