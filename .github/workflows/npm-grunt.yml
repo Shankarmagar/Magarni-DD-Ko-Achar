@@ -26,6 +26,15 @@ jobs:
       run: |
         cd magarni-dd-ko-achar
         npm install
+        npm install sharp
+
+    - name: Fix missing image issue (check cart.png)
+      run: |
+        cd magarni-dd-ko-achar
+        if [ ! -f "./src/images/cart.png" ]; then
+          echo "Warning: cart.png is missing. Ensure the image is present to avoid build failure."
+          exit 1
+        fi
 
     - name: Build Next.js app
       run: |
