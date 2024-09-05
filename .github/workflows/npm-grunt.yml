@@ -24,5 +24,6 @@ jobs:
 
     - name: Build
       run: |
+        cd magarni-dd-ko-achar
         npm install
         grunt
