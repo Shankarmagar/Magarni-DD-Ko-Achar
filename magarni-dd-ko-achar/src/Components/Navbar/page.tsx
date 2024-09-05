@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import logo from '../../images/logoAchar.png'
-import cart from '../../images/Cart.png'
+import cart from '../../images/cart.png'
 
 export default function Navbar() {
   return (
