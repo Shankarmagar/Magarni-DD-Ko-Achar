@@ -17,6 +17,16 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Cache Node.js modules
+      uses: actions/cache@v3
+      with:
+        path: |
+          magarni-dd-ko-achar/node_modules
+          magarni-dd-ko-achar/.next/cache
+        key: ${{ runner.os }}-node-${{ hashFiles('magarni-dd-ko-achar/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
     - name: Set up Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
@@ -26,7 +36,6 @@ jobs:
       run: |
         cd magarni-dd-ko-achar
         npm install
-        npm install sharp
 
     - name: Fix missing image issue (check cart.png)
       run: |
