@@ -36,4 +36,5 @@ jobs:
       run: |
         cd magarni-dd-ko-achar
         npm install
+        npx next telemetry disable
         npm run dev
